@@ -1,0 +1,115 @@
+{
+  "test_name": "Haptics stay on forever after losing an arm - b29b7e66-99b3-440c-9e7f-2b4732418639",
+  "timestamp": "19-10-2026_10-38-50",
+  "finished_at": "19-10-2026_10-58-40",
+  "duration_minutes": 20,
+  "started_by": "Amit",
+  "isArchived": false,
+  "result": "pass",
+  "partial": false,
+  "summary": "Passed: in the editor, an arm lost mid-slowed-punch no longer keeps buzzing the controller, and an arm that's still attached buzzes as before. The buzz loop only stopped when the arm left its slowed-punch state, and a lost arm never leaves it. The earlier fix covered multiplayer only, so I added the same check to the singleplayer mech. It compiles. One recompile took 53 seconds: 20 of those go to compiling the single huge main script assembly (2800+ files) while the rest of the build sits idle, plus 11 seconds reloading scripts afterwards.",
+  "job_type": "bug",
+  "abort_reason": null,
+  "failure_kind": null,
+  "instructions": "TASK: you can get haptic forever sometimes when you lose your arm\n\nDESCRIPTION:\n(none)\n\nREQUEST (from Amit):\n@Big Sys follow up, this time check it in the editor, and if it still compiles run a short investigation on why it takes so long\n\nEXTRA (from the card):\nAmit previously asked (in an earlier linked item) to investigate and fix if a possible cause is found; this is a follow-up asking to check it in the editor, and if it still compiles, run a short investigation into why it takes so long.\n\nJOB TYPE:\nBUG FIX - the task reports unwanted existing behaviour (\"you can get haptic forever sometimes when you lose your arm\")\n\nGAME MODE:\nUNSURE - JUDE should decide from game context",
+  "commit_ref": "master",
+  "commit_sha": "289e2fff7b3a88b190e638f91f82ef18cd24cb17",
+  "work_branch": "Automations/JuniorDev/infinite-haptic-arm-loss_85",
+  "pr_url": "https://github.com/one-hamsa/underdogs/pull/104",
+  "files_changed": [
+    "Assets/Scripts/__SinglePlayer/Scripts/Mech/SP_HandIKFollower.cs",
+    "Assets/__Multiplayer/Scripts/Mech/MP_HandIKFollower.cs"
+  ],
+  "verified": [
+    "Project compiles clean (0 errors)",
+    "SP: alive right arm in VelocityLimited keeps its haptics loop running",
+    "SP: killed right arm forced to VelocityLimited stays VelocityLimited 3 s later (cause confirmed) and its haptics loop exits immediately",
+    "SP regression: alive left arm in VelocityLimited still runs its haptics loop",
+    "Compile-time breakdown measured: Bee 32.4 s (Csc Underdogs.Root 19.7 s serial), ILPP ~5 s, domain reload 11.2 s, editor startup ~200 s"
+  ],
+  "not_done": [
+    "MP_HandIKFollower guard (earlier session) not exercised at runtime - same one-line guard, read from code",
+    "No compile-time improvement implemented - investigation is report-only (split Underdogs.Root asmdef suggested in the PR)"
+  ],
+  "configs": [
+    "Dev/No VR",
+    "Advanced/Multiplayer/PC Room Segregation",
+    "Game Modes/Quick Rampage",
+    "Combat/Dont Spawn Enemies",
+    "Combat/Invulnerable/God (first session only; it blocked the arm kill, removed)"
+  ],
+  "console_errors": [],
+  "fix_rounds": 0,
+  "agent_cost_usd": 2.51,
+  "session_end": "success",
+  "screenshots": [
+    {
+      "file": "SCREENSHOT_1.webp",
+      "name": "isolated-close-dead-right-arm-velocitylimited-90",
+      "caption": "The killed right arm lying detached as debris, isolated - the arm whose haptics loop now exits"
+    },
+    {
+      "file": "SCREENSHOT_2.webp",
+      "name": "isolated-close-dead-right-arm-velocitylimited-0",
+      "caption": "Detached right arm from another side, no longer attached to the mech"
+    },
+    {
+      "file": "SCREENSHOT_3.webp",
+      "name": "isolated-close-dead-right-arm-velocitylimited-180",
+      "caption": "Detached right arm, opposite angle"
+    },
+    {
+      "file": "SCREENSHOT_4.webp",
+      "name": "isolated-close-dead-right-arm-velocitylimited-270",
+      "caption": "Detached right arm, fourth angle"
+    },
+    {
+      "file": "SCREENSHOT_5.webp",
+      "name": "isolated-wide-regression-check-mech-alive-left-arm-135",
+      "caption": "Player mech isolated: smoke and sparks at the empty right shoulder, left arm still attached (the regression arm whose loop still runs)"
+    },
+    {
+      "file": "SCREENSHOT_6.webp",
+      "name": "isolated-wide-regression-check-mech-alive-left-arm-45",
+      "caption": "Player mech with only the left arm, wide from 45 deg"
+    },
+    {
+      "file": "SCREENSHOT_7.webp",
+      "name": "isolated-wide-regression-check-mech-alive-left-arm-225",
+      "caption": "Player mech with only the left arm, wide from 225 deg"
+    },
+    {
+      "file": "SCREENSHOT_8.webp",
+      "name": "isolated-wide-regression-check-mech-alive-left-arm-315",
+      "caption": "Player mech with only the left arm, wide from 315 deg"
+    },
+    {
+      "file": "SCREENSHOT_9.webp",
+      "name": "non-isolated-wide-mech-and-detached-right-arm-315",
+      "caption": "Mech in the Rampage arena after losing its right arm, smoke from the shoulder; the debris arm was blocked by scene geometry from this view"
+    },
+    {
+      "file": "SCREENSHOT_10.webp",
+      "name": "non-isolated-wide-mech-and-detached-right-arm-45",
+      "caption": "Arena wide view around the mech (debris arm reported hidden behind geometry)"
+    },
+    {
+      "file": "SCREENSHOT_11.webp",
+      "name": "non-isolated-wide-mech-and-detached-right-arm-135",
+      "caption": "Arena wide view around the mech from 135 deg (debris arm hidden)"
+    },
+    {
+      "file": "SCREENSHOT_12.webp",
+      "name": "non-isolated-wide-mech-and-detached-right-arm-225",
+      "caption": "Arena wide view around the mech from 225 deg (debris arm hidden)"
+    }
+  ],
+  "has_thumbnail": true,
+  "runner_name": "Cloud-Machine-B",
+  "session_id": "940b84dc-4259-4b5b-af6e-2f465538f862",
+  "session_job_result": "success",
+  "github_run_id": "39238217024",
+  "run_url": "https://github.com/one-hamsa/underdogs/actions/runs/39238217024",
+  "test_successful": true,
+  "drive_link": "https://drive.google.com/drive/folders/1ED_RJ5x163GSJZDzqrAWHcmi2Ww1z5aj"
+}

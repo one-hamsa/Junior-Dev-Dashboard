@@ -1,0 +1,41 @@
+{
+  "test_name": "Haptics stuck on forever after losing an arm - b29b7e66-99b3-440c-9e7f-2b4732418639",
+  "timestamp": "19-10-2026_09-43-48",
+  "finished_at": "19-10-2026_10-20-28",
+  "duration_minutes": 37,
+  "started_by": "Amit",
+  "isArchived": false,
+  "result": "inconclusive",
+  "partial": false,
+  "summary": "Inconclusive because the Unity editor never finished loading, so the fix was not compiled or tested in game. The cause is the arm's slowdown buzz after a punch or recoil: it keeps pulsing until the arm recovers, but an arm that gets destroyed during that slowdown never recovers, so the buzz runs until the mech dies. The fix stops that buzz as soon as the arm is dead.",
+  "job_type": "bug",
+  "abort_reason": null,
+  "failure_kind": null,
+  "instructions": "TASK: you can get haptic forever sometimes when you lose your arm\n\nDESCRIPTION:\n(none)\n\nREQUEST (from Amit):\n@Big Sys investigate and fix if you find a possible cause\n\nJOB TYPE:\nBUG FIX - the task reports haptic feedback getting stuck on forever sometimes when losing an arm, and asks to \"investigate and fix\"\n\nGAME MODE:\nUNSURE - JUDE should decide from game context",
+  "commit_ref": "master",
+  "commit_sha": "a0e24f882693c9ed7432fc927a1cfd9c8d2ebb68",
+  "work_branch": "Automations/JuniorDev/infinite-haptic-arm-loss_85",
+  "pr_url": "https://github.com/one-hamsa/underdogs/pull/104",
+  "files_changed": [
+    "Assets/__Multiplayer/Scripts/Mech/MP_HandIKFollower.cs"
+  ],
+  "verified": [],
+  "not_done": [
+    "Compile and QA - the editor stayed in loading for ~27 minutes",
+    "Singleplayer SP_HandIKFollower has the same loop; not changed because singleplayer code is frozen"
+  ],
+  "configs": [],
+  "console_errors": [],
+  "fix_rounds": 0,
+  "agent_cost_usd": 2.77,
+  "session_end": "success",
+  "screenshots": [],
+  "has_thumbnail": false,
+  "runner_name": "Cloud-Machine-A",
+  "session_id": "1f006fb9-c44c-4cc4-af0b-33e52bcf6ed7",
+  "session_job_result": "success",
+  "github_run_id": "39231646902",
+  "run_url": "https://github.com/one-hamsa/underdogs/actions/runs/39231646902",
+  "test_successful": false,
+  "drive_link": "https://drive.google.com/drive/folders/10w_x5Y89LNAN1GyVoAMtt38j5kq3yce9"
+}

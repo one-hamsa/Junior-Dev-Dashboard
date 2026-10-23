@@ -1,0 +1,141 @@
+{
+  "test_name": "Invulnerable junkdog still hits player when bashed - ea6dc678-7eda-4264-b1f0-5223cbbe6a16",
+  "timestamp": "18-10-2026_12-04-37",
+  "finished_at": "18-10-2026_12-24-32",
+  "duration_minutes": 20,
+  "started_by": "Amit",
+  "isArchived": false,
+  "result": "pass",
+  "partial": false,
+  "summary": "Passed: in the editor, bashing an invulnerable junkdog in the middle of a lunge or a jump attack now ends the attack, and the bashed attack no longer hits the player. Bashes used to stop the attack only through the damage they deal, and invulnerability blocks that damage, so the attack kept going. A bash now cancels the attack by itself; it is still blocked and still uses up one invulnerability shield. I checked this on Junkdog, Spiked and Bloodhound, and a junkdog without invulnerability still reacts to a bash as before.",
+  "job_type": "bug",
+  "abort_reason": null,
+  "failure_kind": null,
+  "instructions": "TASK: when bashing an attacking junkdog of any type while it has invulnerability it still hits you\n\nDESCRIPTION:\nvid1 - can clearly see when it has invulnerability it hits me, when it doesn't have it, it doesn't hit me\n\nvid2 - shows it also happens when they jump on you\n\nREQUEST (from Amit):\n@Big Sys investigate and fix\n\nEXTRA (from the card):\n- Clip: vid2 \u2014 https://artqrjiehjyznnnoshil.supabase.co/storage/v1/object/sign/node_context/ea6dc678-7eda-4264-b1f0-5223cbbe6a16/5939c1ce-15eb-421d-bdbf-164b0fbf991e.mp4?token=eyJraWQiOiIxNTQ2YzFiMC03ZmQ4LTRjZWQtOTQyMy1kNWNkNzY4ZWI4NWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJub2RlX2NvbnRleHQvZWE2ZGM2NzgtN2VkYS00MjY0LWIxZjAtNTIyM2NiYmU2YTE2LzU5MzljMWNlLTE1ZWItNDIxZC1iZGJmLTE2NGIwZmJmOTkxZS5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzkyMzIzNDI5LCJleHAiOjE3OTIzMjcwMjl9.jiKSXSfPB4zita2unJX8F7Zw1RBz7aIczxf-Najv39o - Shows the junkdog hitting the player when it jumps on them.\n- Clip: vid1 \u2014 https://artqrjiehjyznnnoshil.supabase.co/storage/v1/object/sign/node_context/ea6dc678-7eda-4264-b1f0-5223cbbe6a16/243a3003-0afb-4564-9217-aac8758b6f4d.mp4?token=eyJraWQiOiIxNTQ2YzFiMC03ZmQ4LTRjZWQtOTQyMy1kNWNkNzY4ZWI4NWUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJub2RlX2NvbnRleHQvZWE2ZGM2NzgtN2VkYS00MjY0LWIxZjAtNTIyM2NiYmU2YTE2LzI0M2EzMDAzLTBhZmItNDU2NC05MjE3LWFhYzg3NThiNmY0ZC5tcDQiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzkyMzIzNDI5LCJleHAiOjE3OTIzMjcwMjl9.y-Q9HUxDe6sKDhv3JP0MZN3JyKZ3d5w-F8607FWUH_w - Shows the junkdog hitting the player while invulnerable, but not hitting when invulnerability is off.\n\nJOB TYPE:\nBUG FIX - Labeled 'Bug' and the task describes existing behaviour (still gets hit) that should not happen\n\nGAME MODE:\nSINGLEPLAYER - the card has the `SinglePlayer` label",
+  "commit_ref": "master",
+  "commit_sha": "b136dc6877fa64bac201eb7e426e494a8b21c480",
+  "work_branch": "Automations/JuniorDev/junkdog-invulnerability-bash-hit_83",
+  "pr_url": "https://github.com/one-hamsa/underdogs/pull/103",
+  "files_changed": [
+    "Assets/Scripts/Combat/Entities/Bots/JunkDog/JunkDogAI.cs"
+  ],
+  "verified": [
+    "Junkdog Normal with invulnerability, bashed (BashGuard interaction) as its lunge commits: bash Blocked with 0 damage and one stack spent, attack ended within 10 frames, no hit on the mech from that attack (4 runs)",
+    "Junkdog Normal with invulnerability, bashed in the air during a jump attack: same, no hit (2 runs)",
+    "Control: attacks that were not bashed hit the mech normally; a bash on a junkdog without invulnerability still dealt damage and cancelled the attack",
+    "Regression: Junkdog Spiked and Bloodhound with invulnerability, each bashed during a jump attack: blocked, no hit from that attack",
+    "Console: 0 errors"
+  ],
+  "not_done": [
+    "Did not see the lunge fail at runtime before the fix (the lunge also has an impact-based cancel, and vid1 shows it did not stop the hit); the new cancel covers the lunge either way",
+    "First QA run, before the per-hit logger existed: the player lost 38 HP in the 7 s after the bash; later logged runs show those hits come from the junkdog's next attacks, but that run was not logged",
+    "Armored, Turbo, Rabid and other Junkdog variants were not tested one by one - same code path (JunkDogAI JumpAttack/LungeAttack)",
+    "Other bots with the same damage-only attack cancel (Cerberus, Dozer, Jack, Mantis, Roach, Ussam) were not changed - outside this card"
+  ],
+  "configs": [
+    "Dev/No VR",
+    "Advanced/Multiplayer/PC Room Segregation",
+    "Game Modes/Quick Rampage",
+    "Combat/Dont Spawn Enemies",
+    "Combat/Invulnerable/No Death"
+  ],
+  "console_errors": [],
+  "fix_rounds": 0,
+  "agent_cost_usd": 4.04,
+  "session_end": "success",
+  "screenshots": [
+    {
+      "file": "SCREENSHOT_1.webp",
+      "name": "isolated-close-bloodhound-invulnerable-after-blocked-bash-90",
+      "caption": "Bloodhound after its jump-attack bash was blocked: blue-violet invulnerable bar with one shield icon"
+    },
+    {
+      "file": "SCREENSHOT_2.webp",
+      "name": "isolated-close-bloodhound-invulnerable-after-blocked-bash-0",
+      "caption": "Bloodhound with the invulnerable bar, from another angle"
+    },
+    {
+      "file": "SCREENSHOT_3.webp",
+      "name": "isolated-close-bloodhound-invulnerable-after-blocked-bash-180",
+      "caption": "Bloodhound with the invulnerable bar, from behind"
+    },
+    {
+      "file": "SCREENSHOT_4.webp",
+      "name": "isolated-close-bloodhound-invulnerable-after-blocked-bash-270",
+      "caption": "Bloodhound with the invulnerable bar, side view"
+    },
+    {
+      "file": "SCREENSHOT_5.webp",
+      "name": "isolated-close-junkdog-spiked-invulnerable-after-blocked-bash-45",
+      "caption": "Junkdog Spiked after its blocked bash, with the invulnerable bar and shield icons"
+    },
+    {
+      "file": "SCREENSHOT_6.webp",
+      "name": "isolated-close-junkdog-spiked-invulnerable-after-blocked-bash-135",
+      "caption": "Junkdog Spiked with the invulnerable bar, another angle"
+    },
+    {
+      "file": "SCREENSHOT_7.webp",
+      "name": "isolated-close-junkdog-spiked-invulnerable-after-blocked-bash-225",
+      "caption": "Junkdog Spiked with the invulnerable bar, from behind"
+    },
+    {
+      "file": "SCREENSHOT_8.webp",
+      "name": "isolated-wide-regression-check-bloodhound-spiked-invulnerable-90",
+      "caption": "Regression set: Spiked (three shields) and Bloodhound (one shield), both with the invulnerable bar after their blocked bashes"
+    },
+    {
+      "file": "SCREENSHOT_9.webp",
+      "name": "isolated-wide-regression-check-bloodhound-spiked-invulnerable-0",
+      "caption": "Regression set, wide from another side"
+    },
+    {
+      "file": "SCREENSHOT_10.webp",
+      "name": "isolated-wide-regression-check-bloodhound-spiked-invulnerable-180",
+      "caption": "Regression set, wide from behind"
+    },
+    {
+      "file": "SCREENSHOT_11.webp",
+      "name": "isolated-wide-regression-check-bloodhound-spiked-invulnerable-270",
+      "caption": "Regression set, wide side view"
+    },
+    {
+      "file": "SCREENSHOT_12.webp",
+      "name": "isolated-wide-regression-check-bloodhound-spiked-invulnerable-315",
+      "caption": "Regression set, wide diagonal view"
+    },
+    {
+      "file": "SCREENSHOT_13.webp",
+      "name": "non-isolated-wide-junkdogs-invulnerable-arena-45",
+      "caption": "Quick Rampage arena: the player mech in front of the two invulnerable junkdogs after the blocked bashes, nothing else broken"
+    },
+    {
+      "file": "SCREENSHOT_14.webp",
+      "name": "non-isolated-wide-junkdogs-invulnerable-arena-135",
+      "caption": "Arena wide shot from another side"
+    },
+    {
+      "file": "SCREENSHOT_15.webp",
+      "name": "non-isolated-wide-junkdogs-invulnerable-arena-225",
+      "caption": "Arena wide shot from behind the dogs"
+    },
+    {
+      "file": "SCREENSHOT_16.webp",
+      "name": "non-isolated-wide-junkdogs-invulnerable-arena-315",
+      "caption": "Arena wide shot, diagonal"
+    },
+    {
+      "file": "SCREENSHOT_17.webp",
+      "name": "non-isolated-wide-junkdogs-invulnerable-arena-0",
+      "caption": "Arena wide shot, front"
+    }
+  ],
+  "has_thumbnail": true,
+  "runner_name": "Cloud-Machine-C",
+  "session_id": "745c9295-0fb2-484c-b06b-10bbbdd7179a",
+  "session_job_result": "success",
+  "github_run_id": "39125402105",
+  "run_url": "https://github.com/one-hamsa/underdogs/actions/runs/39125402105",
+  "test_successful": true,
+  "drive_link": "https://drive.google.com/drive/folders/16fqdBBHfR0ySz-dlN2AADT8lHU3bwaVW"
+}

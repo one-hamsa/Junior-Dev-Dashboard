@@ -1,0 +1,44 @@
+{
+  "test_name": "Hands stretch to random place after app focus loss - cfa48138-87d8-4c43-b97f-1e6745d4e6bb",
+  "timestamp": "18-10-2026_11-41-59",
+  "finished_at": "18-10-2026_11-56-14",
+  "duration_minutes": 14,
+  "started_by": "Amit",
+  "isArchived": false,
+  "result": "inconclusive",
+  "partial": false,
+  "summary": "Inconclusive because the fix only runs on a real Meta headset, and the cloud editor has none, so nobody could press the Meta button to test it. When the game loses focus, the Meta SDK moves both hands to the middle of the play area on the floor. Single-player pauses the game, but multiplayer keeps running, so the mech arms stretch to that spot. The fix keeps both hands at their last position until focus comes back; it compiles cleanly.",
+  "job_type": "bug",
+  "abort_reason": null,
+  "failure_kind": null,
+  "instructions": "TASK: When pressing the meta button, your hands stretch to a random place instead of staying where they were last\n\nDESCRIPTION:\nno repro it happens every single time the app loses focus it appears\n\nREQUEST (from Amit):\n@Big Sys investigate and fix\n\nJOB TYPE:\nBUG FIX - Labeled 'Bug' and describes hands stretching incorrectly instead of expected behavior of staying in place\n\nGAME MODE:\nMULTIPLAYER - the card has the `PVP` label",
+  "commit_ref": "master",
+  "commit_sha": "53a875d7caae05c1374c0cca92fd119e6d2552fb",
+  "work_branch": "Automations/JuniorDev/hands-stretch-on-focus-loss_82",
+  "pr_url": "https://github.com/one-hamsa/underdogs/pull/102",
+  "files_changed": [
+    "Assets/Scripts/VR/OculusVR Integration/VRPlugin_Oculus.cs"
+  ],
+  "verified": [
+    "Project compiles with no console errors after the change"
+  ],
+  "not_done": [
+    "Runtime verification: the changed code runs only under VRPlugin_Oculus (needs a Meta headset with XR running); the cloud editor runs the Manual plugin and cannot raise a Meta focus loss, so /qa was not run",
+    "TrackedController_Oculus.position/localPosition (read directly from OVRInput, used by MP_Gorilloco pivot locomotion) are not held during focus loss",
+    "Non-Meta plugins (UnityXR, SteamVR, PICO, Steam Frame) unchanged"
+  ],
+  "configs": [],
+  "console_errors": [],
+  "fix_rounds": 0,
+  "agent_cost_usd": 2.06,
+  "session_end": "success",
+  "screenshots": [],
+  "has_thumbnail": false,
+  "runner_name": "Cloud-Machine-C",
+  "session_id": "21878916-1c6f-4070-b2c4-32743284af77",
+  "session_job_result": "success",
+  "github_run_id": "39123924904",
+  "run_url": "https://github.com/one-hamsa/underdogs/actions/runs/39123924904",
+  "test_successful": false,
+  "drive_link": "https://drive.google.com/drive/folders/1FTL9T6UU-ggYx6M1DL_FXWY7OuvZJRyb"
+}
